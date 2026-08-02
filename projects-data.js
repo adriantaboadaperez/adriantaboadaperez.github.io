@@ -189,8 +189,10 @@ const PROJECTS = {
     org: "Boston University · Biomedical Engineering Lab",
     teaser: "Machined structural components and built the analog driver for a peristaltic blood pump prototype.",
     body: [
-      "I contributed to a peristaltic pump prototype built for biomedical lab use, aimed at a compact and efficient blood pumping system.",
-      "My part of the work was mostly on the fabrication and drive side: machining the roller housing and structural components in aluminum on the lathe and mill for precise motor alignment, and developing an analog motor driver circuit for velocity control so we could tune flow rate during testing."
+      "A biomedical lab at BU was purchasing commercial peristaltic pumps for mouse blood-pumping applications at a fairly high cost, so I partenered with a friend and designed a lower-cost alternative: a compact, motor-driven peristaltic pump built around off-the-shelf hardware and machined parts instead.",
+      "I designed the CAD model and the electronics. The motor coupler doubles as the drive shaft, connecting directly to the external peristaltic pump head that does the actual tube compression, supported by a roller bearing in the housing (shown in the split view). The front panel that holds the tubing was designed to slide along a set of slots, with a set screw to lock position, so the same housing can accommodate different tube diameters. I sized that panel for 3D printing.",
+      "On the electronics side, an N-MOS stage switches power to the motor, with its gate driven by a 555 timer IC generating a PWM signal, an on-board 100 kΩ potentiometer (the Velocity Knob) sets the duty cycle. An on/off switch and LED handle power state, and a separate Enable switch disables the 555 timer's PWM output without powering down the rest of the system, useful for stopping the motor without losing the rest of the circuit's state. Power comes in through a DC jack into a 12V regulator, so the system tolerates a range of wall-adapter voltages above 12V.",
+      "We fabricated the shaft, front housing, and tube holder in aluminum on the lathe and mill to bring the design into a working prototype."
     ],
     images: [
       { src: "images/peristaltic-pump/front-view.png", caption: "Machined roller housing" },

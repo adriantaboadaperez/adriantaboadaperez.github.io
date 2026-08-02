@@ -42,6 +42,16 @@
   <span>Boston University '26 · Carnegie Mellon University '28</span>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-counter" id="lightboxCounter"></span>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+  <button class="lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#8249;</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <button class="lightbox-next" id="lightboxNext" aria-label="Next image">&#8250;</button>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
 <script src="projects-data.js"></script>
 <script>
   const ids = Object.keys(PROJECTS).map(Number).sort((a,b) => a - b);
@@ -60,8 +70,9 @@
   document.getElementById('ppTitle').textContent = p.title;
   document.getElementById('ppOrg').textContent = p.org;
 
-  document.getElementById('ppGallery').innerHTML = (p.images || []).map(img =>
-    `<figure><a href="${img.src}" target="_blank" rel="noopener"><img src="${img.src}" alt="${img.caption}" loading="lazy"></a><figcaption class="pp-caption">${img.caption}</figcaption></figure>`
+  const galleryImages = p.images || [];
+  document.getElementById('ppGallery').innerHTML = galleryImages.map((img, i) =>
+    `<figure><div class="pp-img-wrap" data-index="${i}"><img src="${img.src}" alt="${img.caption}" loading="lazy"></div><figcaption class="pp-caption">${img.caption}</figcaption></figure>`
   ).join('');
 
   document.getElementById('ppBody').innerHTML = p.body.map(par => `<p>${par}</p>`).join('');
@@ -80,6 +91,47 @@
   nextEl.href = `project.html?id=${nextId}`;
   prevEl.textContent = `← ${PROJECTS[prevId].title}`;
   nextEl.textContent = `${PROJECTS[nextId].title} →`;
+
+  // ── Lightbox ──
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxCounter = document.getElementById('lightboxCounter');
+  let lbIndex = 0;
+
+  function updateLightbox() {
+    const img = galleryImages[lbIndex];
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.caption;
+    lightboxCaption.textContent = img.caption;
+    lightboxCounter.textContent = `${lbIndex + 1} / ${galleryImages.length}`;
+  }
+  function openLightbox(i) {
+    lbIndex = i;
+    updateLightbox();
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function showPrev() { lbIndex = (lbIndex - 1 + galleryImages.length) % galleryImages.length; updateLightbox(); }
+  function showNext() { lbIndex = (lbIndex + 1) % galleryImages.length; updateLightbox(); }
+
+  document.querySelectorAll('.pp-img-wrap').forEach(el => {
+    el.addEventListener('click', () => openLightbox(parseInt(el.dataset.index, 10)));
+  });
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxPrev').addEventListener('click', showPrev);
+  document.getElementById('lightboxNext').addEventListener('click', showNext);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showPrev();
+    if (e.key === 'ArrowRight') showNext();
+  });
 </script>
 </body>
 </html>

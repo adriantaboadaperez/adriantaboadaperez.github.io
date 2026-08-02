@@ -7,23 +7,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0d0d0d;
-      --surface: #141414;
-      --card: #181818;
-      --border: #2a2a2a;
-      --accent: #e8c84a;
-      --accent2: #4a9be8;
-      --text: #e8e4dc;
-      --muted: #888;
+      --bg: #0a0e14;
+      --surface: #0f141c;
+      --card: #131924;
+      --border: #232c3a;
+      --accent: #5b9df0;
+      --accent2: #3ddbd9;
+      --text: #e4e9f0;
+      --muted: #7c8797;
       --font-display: 'Bebas Neue', sans-serif;
       --font-body: 'DM Sans', sans-serif;
       --font-mono: 'DM Mono', monospace;
     }
-
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--text);
@@ -32,7 +29,6 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
-
     /* ─── NAV ─────────────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -58,34 +54,27 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--text); }
-
     /* ─── HERO ────────────────────────────────────────── */
     .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: 80px;
+      min-height: 92vh;
+      display: flex;
+      align-items: center;
+      padding: 110px 4rem 5rem;
       position: relative;
       overflow: hidden;
     }
-
     .hero-grid-overlay {
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(232,200,74,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(232,200,74,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(91,157,240,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(91,157,240,0.05) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
     }
-
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 4rem 3rem 4rem 4rem;
+    .hero-content {
+      max-width: 760px;
       position: relative;
     }
-
     .hero-eyebrow {
       font-family: var(--font-mono);
       font-size: 0.78rem;
@@ -104,41 +93,36 @@
       height: 1px;
       background: var(--accent);
     }
-
     .hero-name {
       font-family: var(--font-display);
-      font-size: clamp(4rem, 8vw, 7rem);
+      font-size: clamp(3.4rem, 7.5vw, 6.4rem);
       line-height: 0.92;
       letter-spacing: 0.02em;
       color: var(--text);
       margin-bottom: 0.5rem;
     }
     .hero-name .accent { color: var(--accent); }
-
     .hero-title {
       font-family: var(--font-display);
-      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      font-size: clamp(1.1rem, 2.2vw, 1.6rem);
       color: var(--muted);
       letter-spacing: 0.15em;
-      margin-bottom: 2.5rem;
+      margin-bottom: 2.2rem;
     }
-
     .hero-bio {
       font-size: 1rem;
       color: #aaa;
-      max-width: 440px;
-      line-height: 1.8;
-      margin-bottom: 3rem;
+      max-width: 620px;
+      line-height: 1.85;
+      margin-bottom: 2.5rem;
     }
-
     .hero-bio strong { color: var(--text); font-weight: 500; }
-
     .hero-cta {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
+      margin-bottom: 2.8rem;
     }
-
     .btn {
       display: inline-flex;
       align-items: center;
@@ -155,73 +139,16 @@
     }
     .btn-primary {
       background: var(--accent);
-      color: #0d0d0d;
+      color: #0a0e14;
       font-weight: 500;
     }
-    .btn-primary:hover { background: #f5d96a; transform: translateY(-2px); }
+    .btn-primary:hover { background: #82b8f5; transform: translateY(-2px); }
     .btn-outline {
       background: transparent;
       color: var(--text);
       border: 1px solid var(--border);
     }
     .btn-outline:hover { border-color: var(--text); transform: translateY(-2px); }
-
-    .hero-right {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 4rem 4rem 4rem 2rem;
-      position: relative;
-    }
-
-    .hero-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 420px;
-    }
-
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      padding: 1.8rem;
-      border-radius: 4px;
-      position: relative;
-      overflow: hidden;
-      animation: fadeUp 0.6s ease both;
-    }
-    .stat-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: var(--accent);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s;
-    }
-    .stat-card:hover::before { transform: scaleX(1); }
-    .stat-card:nth-child(1) { animation-delay: 0.1s; }
-    .stat-card:nth-child(2) { animation-delay: 0.2s; }
-    .stat-card:nth-child(3) { animation-delay: 0.3s; }
-    .stat-card:nth-child(4) { animation-delay: 0.4s; }
-
-    .stat-number {
-      font-family: var(--font-display);
-      font-size: 2.8rem;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 0.4rem;
-    }
-    .stat-label {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-
     /* ─── SECTION SHARED ──────────────────────────────── */
     section { padding: 6rem 4rem; }
     .section-header {
@@ -248,7 +175,6 @@
       background: var(--border);
       margin-left: 1rem;
     }
-
     /* ─── SKILLS ──────────────────────────────────────── */
     .skills-section { background: var(--surface); }
     .skills-grid {
@@ -281,14 +207,12 @@
       border-radius: 2px;
       border: 1px solid var(--border);
     }
-
     /* ─── PROJECTS ────────────────────────────────────── */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
       gap: 1.5rem;
     }
-
     .project-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -302,11 +226,9 @@
       transform: translateY(-4px);
       border-color: #444;
     }
-
     .project-card.featured {
       grid-column: span 2;
     }
-
     .project-tag {
       position: absolute;
       top: 1.2rem; right: 1.2rem;
@@ -318,12 +240,12 @@
       text-transform: uppercase;
       z-index: 2;
     }
-    .tag-burpg { background: rgba(232,200,74,0.15); color: var(--accent); border: 1px solid rgba(232,200,74,0.3); }
-    .tag-capstone { background: rgba(74,155,232,0.15); color: var(--accent2); border: 1px solid rgba(74,155,232,0.3); }
-    .tag-embedded { background: rgba(200,100,74,0.15); color: #e8a04a; border: 1px solid rgba(200,100,74,0.3); }
-    .tag-cfd { background: rgba(100,200,74,0.15); color: #9de84a; border: 1px solid rgba(100,200,74,0.3); }
-    .tag-mech { background: rgba(200,74,200,0.15); color: #e84ac8; border: 1px solid rgba(200,74,200,0.3); }
-
+    .tag-burpg { background: rgba(91,157,240,0.15); color: var(--accent); border: 1px solid rgba(91,157,240,0.3); }
+    .tag-industry { background: rgba(61,219,217,0.15); color: var(--accent2); border: 1px solid rgba(61,219,217,0.3); }
+    .tag-embedded { background: rgba(110,180,230,0.15); color: #8ec4ee; border: 1px solid rgba(110,180,230,0.3); }
+    .tag-cfd { background: rgba(80,200,225,0.15); color: #6fd0e8; border: 1px solid rgba(80,200,225,0.3); }
+    .tag-mech { background: rgba(140,130,240,0.15); color: #a9a0f2; border: 1px solid rgba(140,130,240,0.3); }
+    .tag-dynamics { background: rgba(120,145,255,0.15); color: #9bb0ff; border: 1px solid rgba(120,145,255,0.3); }
     .project-visual {
       height: 180px;
       display: flex;
@@ -337,13 +259,11 @@
       position: relative;
       overflow: hidden;
     }
-    .project-card.featured .project-visual { height: 240px; }
-
+    .project-card.featured .project-visual { height: 220px; }
     .project-visual-bg {
       position: absolute; inset: 0;
       opacity: 0.5;
     }
-
     .project-body { padding: 1.8rem; }
     .project-index {
       font-family: var(--font-mono);
@@ -356,8 +276,15 @@
       font-family: var(--font-display);
       font-size: 1.6rem;
       letter-spacing: 0.05em;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.4rem;
       line-height: 1.1;
+    }
+    .project-org {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent2);
+      letter-spacing: 0.04em;
+      margin-bottom: 1rem;
     }
     .project-desc {
       font-size: 0.9rem;
@@ -375,53 +302,107 @@
       padding: 0.2rem 0.55rem;
       border-radius: 20px;
     }
-
     /* visual gradients per project */
-    .v-rocket { background: radial-gradient(ellipse at 50% 80%, rgba(232,200,74,0.25) 0%, transparent 70%); }
-    .v-swage { background: radial-gradient(ellipse at 50% 80%, rgba(74,155,232,0.25) 0%, transparent 70%); }
-    .v-nozzle { background: radial-gradient(ellipse at 50% 80%, rgba(255,120,50,0.3) 0%, transparent 70%); }
-    .v-blood { background: radial-gradient(ellipse at 50% 80%, rgba(220,50,80,0.25) 0%, transparent 70%); }
-    .v-draw { background: radial-gradient(ellipse at 50% 80%, rgba(100,220,150,0.25) 0%, transparent 70%); }
-    .v-calib { background: radial-gradient(ellipse at 50% 80%, rgba(150,100,255,0.25) 0%, transparent 70%); }
+    .v-swage { background: radial-gradient(ellipse at 50% 80%, rgba(61,219,217,0.25) 0%, transparent 70%); }
+    .v-rocket { background: radial-gradient(ellipse at 50% 80%, rgba(91,157,240,0.28) 0%, transparent 70%); }
+    .v-nozzle { background: radial-gradient(ellipse at 50% 80%, rgba(120,145,255,0.3) 0%, transparent 70%); }
+    .v-blood { background: radial-gradient(ellipse at 50% 80%, rgba(140,130,240,0.25) 0%, transparent 70%); }
+    .v-draw { background: radial-gradient(ellipse at 50% 80%, rgba(80,200,225,0.25) 0%, transparent 70%); }
+    .v-calib { background: radial-gradient(ellipse at 50% 80%, rgba(150,170,255,0.25) 0%, transparent 70%); }
     .v-cad { background: radial-gradient(ellipse at 50% 80%, rgba(50,200,240,0.25) 0%, transparent 70%); }
-
-    /* ─── ABOUT ───────────────────────────────────────── */
-    .about-section { background: var(--surface); }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: start;
-    }
-    .about-text p {
-      font-size: 1rem;
-      color: #aaa;
-      line-height: 1.9;
-      margin-bottom: 1.2rem;
-    }
-    .about-text p strong { color: var(--text); font-weight: 500; }
-
-    .about-details { display: flex; flex-direction: column; gap: 1rem; }
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 1rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .detail-label {
+    /* ─── PROJECT DETAIL HINT ─────────────────────────── */
+    .project-card { cursor: pointer; }
+    .project-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.2rem;
       font-family: var(--font-mono);
       font-size: 0.75rem;
       color: var(--accent);
+      letter-spacing: 0.05em;
+      transition: gap 0.2s;
+    }
+    .project-card:hover .project-hint { gap: 0.7rem; }
+    /* ─── PROJECT MODAL ───────────────────────────────── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(6,8,12,0.75);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 6vh 1.5rem;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      max-width: 760px;
+      width: 100%;
+      padding: 2.5rem;
+      position: relative;
+      animation: fadeUp 0.25s ease both;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      width: 2.2rem; height: 2.2rem;
+      display: flex; align-items: center; justify-content: center;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .modal-close:hover { color: var(--text); border-color: var(--text); }
+    .modal-index {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--accent);
       letter-spacing: 0.1em;
-      text-transform: uppercase;
+      margin-bottom: 0.6rem;
     }
-    .detail-value {
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      letter-spacing: 0.04em;
+      margin-bottom: 0.4rem;
+      line-height: 1.05;
+      max-width: 85%;
+    }
+    .modal-org {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent2);
+      margin-bottom: 1.6rem;
+    }
+    .modal-body p {
       font-size: 0.95rem;
-      color: var(--text);
-      text-align: right;
+      color: #a9a9a9;
+      line-height: 1.85;
+      margin-bottom: 1.1rem;
     }
-
+    .modal-body p strong { color: var(--text); font-weight: 500; }
+    .modal-pills {
+      display: flex; flex-wrap: wrap; gap: 0.4rem;
+      margin: 1.6rem 0 1.6rem;
+    }
+    .modal-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(91,157,240,0.4);
+      padding-bottom: 2px;
+    }
+    .modal-link:hover { border-color: var(--accent); }
     /* ─── CONTACT ─────────────────────────────────────── */
     .contact-section {
       text-align: center;
@@ -466,7 +447,6 @@
       gap: 1.2rem;
       flex-wrap: wrap;
     }
-
     /* ─── FOOTER ──────────────────────────────────────── */
     footer {
       padding: 2rem 4rem;
@@ -481,28 +461,25 @@
       color: var(--muted);
       letter-spacing: 0.05em;
     }
-
     /* ─── ANIMATIONS ──────────────────────────────────── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
-    .hero-left > * {
+    .hero-content > * {
       animation: fadeUp 0.7s ease both;
     }
-    .hero-left > *:nth-child(1) { animation-delay: 0.1s; }
-    .hero-left > *:nth-child(2) { animation-delay: 0.2s; }
-    .hero-left > *:nth-child(3) { animation-delay: 0.3s; }
-    .hero-left > *:nth-child(4) { animation-delay: 0.4s; }
-    .hero-left > *:nth-child(5) { animation-delay: 0.5s; }
-
+    .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
+    .hero-content > *:nth-child(6) { animation-delay: 0.6s; }
     /* ─── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 900px) {
       nav { padding: 1rem 1.5rem; }
       .nav-links { display: none; }
-      .hero { grid-template-columns: 1fr; }
-      .hero-right { display: none; }
+      .hero { padding: 100px 1.5rem 3rem; }
       section { padding: 4rem 1.5rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
       .project-card.featured { grid-column: span 1; }
@@ -512,62 +489,251 @@
   </style>
 </head>
 <body>
-
 <!-- NAV -->
 <nav>
   <span class="nav-logo">ATP // PORTFOLIO</span>
   <ul class="nav-links">
     <li><a href="#projects">Projects</a></li>
     <li><a href="#skills">Skills</a></li>
-    <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
-
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="hero-grid-overlay"></div>
-  <div class="hero-left">
-    <div class="hero-eyebrow">Mechanical &amp; Electrical Engineering</div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Mechatronics &amp; Electromechanical Design</div>
     <h1 class="hero-name">ADRIAN<br><span class="accent">TABOADA</span><br>PEREZ</h1>
-    <p class="hero-title">MECHANICAL DESIGN · ELECTRONICS · AUTOMATION</p>
+    <p class="hero-title">MECHATRONICS · POWER ELECTRONICS · CONTROL SYSTEMS</p>
     <p class="hero-bio">
-      Senior MechE at <strong>Boston University</strong>, minor in EE. Incoming MS student at
-      <strong>Carnegie Mellon University</strong>, concentrating in Robotics &amp; Control Systems.
-      I build things that sit at the intersection of hardware, electronics, and software —
-      from rocket pumps to automation machines to embedded control systems.
+      I graduated from <strong>Boston University</strong> in May 2026 with a BS in Mechanical Engineering and a
+      minor in Electrical Engineering, and I'm now working on an MS in Mechanical Engineering at
+      <strong>Carnegie Mellon University</strong>, focusing on robotics and control systems — graduating spring
+      2028, if all goes to plan.
+    </p>
+    <p class="hero-bio">
+      Most of what I end up building needs both a mechanical engineer and an electrical engineer in the room, so
+      that's usually the project I go looking for: something that needs a part machined, a circuit built, and code
+      written before it actually does anything. Pumps, grippers, flight computers, whatever — if it has to move and
+      it has to be controlled, I'm interested.
     </p>
     <div class="hero-cta">
       <a href="#projects" class="btn btn-primary">View Projects</a>
       <a href="mailto:adriantaboadaperez@gmail.com" class="btn btn-outline">Get in Touch</a>
     </div>
   </div>
-  <div class="hero-right">
-    <div class="hero-stats">
-      <div class="stat-card">
-        <div class="stat-number">7</div>
-        <div class="stat-label">Featured Projects</div>
+</section>
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-number">// 00</span>
+    <h2 class="section-title">PROJECTS</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+    <!-- 1. Tube Swaging Automation -->
+    <div class="project-card featured" data-project="1">
+      <span class="project-tag tag-industry">Automation</span>
+      <div class="project-visual">
+        <div class="project-visual-bg v-swage"></div>
+        <span>AUTO</span>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">CMU</div>
-        <div class="stat-label">Incoming MS '25</div>
+      <div class="project-body">
+        <div class="project-index">01 — Automation + Controls</div>
+        <h3 class="project-title">TUBE SWAGING AUTOMATION</h3>
+        <div class="project-org">Vita Needle Company &nbsp;·&nbsp; Sep 2025 – May 2026</div>
+        <p class="project-desc">
+          Designed and built an automation device for Vita Needle's tube swaging process, using a lead-screw
+          actuator, pneumatic gripper, and custom gripper jaws to load needles into the swaging machine — replacing
+          the manual feeding process and achieving 98% consistent, high-quality swages. Developed the full electrical
+          control system and HMI: a microcontroller-driven state machine, Hall-effect position sensing,
+          solenoid-driven gripper actuation, OLED display, and a fail-safe E-STOP circuit built from relays and
+          contactors for reliable operator safety.
+        </p>
+        <div class="project-pills">
+          <span class="pill">Lead-Screw Actuator</span>
+          <span class="pill">Pneumatic Gripper</span>
+          <span class="pill">Arduino</span>
+          <span class="pill">Hall Effect</span>
+          <span class="pill">HMI</span>
+          <span class="pill">E-STOP Safety Circuit</span>
+          <span class="pill">KiCad</span>
+          <span class="pill">CNC Machining</span>
+        </div>
+        <span class="project-hint">View details →</span>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">BU</div>
-        <div class="stat-label">MechE + EE, 2025</div>
+    </div>
+    <!-- 2. Centrifugal Fuel Pump -->
+    <div class="project-card featured" data-project="2">
+      <span class="project-tag tag-burpg">Propulsion</span>
+      <div class="project-visual">
+        <div class="project-visual-bg v-rocket"></div>
+        <span>PUMP</span>
       </div>
-      <div class="stat-card">
-        <div class="stat-number">2+</div>
-        <div class="stat-label">Rocket Projects</div>
+      <div class="project-body">
+        <div class="project-index">02 — Mechanical Design + Electronics</div>
+        <h3 class="project-title">CENTRIFUGAL FUEL PUMP</h3>
+        <div class="project-org">BU Rocket Propulsion Group (BURPG) &nbsp;·&nbsp; Oct 2025 – Dec 2025</div>
+        <p class="project-desc">
+          Modeled and manufactured a centrifugal fuel pump for BURPG's liquid bipropellant propulsion system —
+          3D-printed the impeller and housing, machined a custom aluminum shaft, and integrated a brushless DC
+          motor. Sized the pump from first principles (Bernoulli, continuity, momentum) to hit a 75 mL/s flow rate
+          and 21 ft head target, and optimized impeller geometry using fluid dynamics simulations. Designed a
+          custom analog motor driver — 555-timer PWM stage into a MOSFET H-bridge — for speed and direction control.
+        </p>
+        <div class="project-pills">
+          <span class="pill">SolidWorks</span>
+          <span class="pill">BLDC Motor</span>
+          <span class="pill">Fluid Dynamics</span>
+          <span class="pill">3D Printing</span>
+          <span class="pill">Lathe &amp; Mill</span>
+          <span class="pill">555 Timer PWM</span>
+          <span class="pill">H-Bridge</span>
+          <span class="pill">KiCad</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+    </div>
+    <!-- 3. Nozzle + Ignition -->
+    <div class="project-card featured" data-project="3">
+      <span class="project-tag tag-burpg">Propulsion</span>
+      <div class="project-visual">
+        <div class="project-visual-bg v-nozzle"></div>
+        <span>FIRE</span>
+      </div>
+      <div class="project-body">
+        <div class="project-index">03 — Propulsion + Embedded</div>
+        <h3 class="project-title">ROCKET NOZZLE &amp; IGNITION CONTROL SYSTEM</h3>
+        <div class="project-org">BU Rocket Propulsion Group (BURPG) &nbsp;·&nbsp; Sep 2024 – Dec 2024</div>
+        <p class="project-desc">
+          Modeled multiple fixed-geometry rocket nozzles in SolidWorks, achieving a simulated 12% thrust efficiency
+          gain over baseline through iterative thermal-load FEA, then 3D-printed and test-fired the selected design.
+          Engineered the flight computer in C++ around a microcontroller, using NMOS driver stages to synchronize
+          solenoid valve actuation and electronic-match ignition, with SD-card data logging from a load cell during
+          live nozzle firings at target conditions.
+        </p>
+        <div class="project-pills">
+          <span class="pill">SolidWorks</span>
+          <span class="pill">FEA</span>
+          <span class="pill">Arduino Nano</span>
+          <span class="pill">C++</span>
+          <span class="pill">Load Cell DAQ</span>
+          <span class="pill">Propulsion Theory</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+    </div>
+    <!-- 4. Blood Pump -->
+    <div class="project-card" data-project="4">
+      <span class="project-tag tag-mech">Biomedical</span>
+      <div class="project-visual" style="height:160px">
+        <div class="project-visual-bg v-blood"></div>
+        <span>PUMP</span>
+      </div>
+      <div class="project-body">
+        <div class="project-index">04 — Mechanical + Controls</div>
+        <h3 class="project-title">PERISTALTIC BLOOD PUMP</h3>
+        <div class="project-org">Boston University &nbsp;·&nbsp; Biomedical Engineering Lab</div>
+        <p class="project-desc">
+          Contributed to a peristaltic pump prototype for biomedical laboratory use, focused on a compact
+          mechanically driven pumping system. Machined key structural components in aluminum on the lathe and mill
+          for precise motor alignment, and developed an analog motor driver circuit for velocity control during
+          testing.
+        </p>
+        <div class="project-pills">
+          <span class="pill">Lathe &amp; Mill</span>
+          <span class="pill">Analog Circuits</span>
+          <span class="pill">Motor Control</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+    </div>
+    <!-- 5. Drawing Machine -->
+    <div class="project-card" data-project="5">
+      <span class="project-tag tag-embedded">Electromech</span>
+      <div class="project-visual" style="height:160px">
+        <div class="project-visual-bg v-draw"></div>
+        <span>DRAW</span>
+      </div>
+      <div class="project-body">
+        <div class="project-index">05 — Electromechanical Design</div>
+        <h3 class="project-title">TWO-COLOR DRAWING MACHINE</h3>
+        <div class="project-org">Boston University &nbsp;·&nbsp; Personal Project</div>
+        <p class="project-desc">
+          Designed and built a two-axis CNC drawing machine with a custom aluminum frame and a 3D-printed
+          pen-change mechanism. Built the full software pipeline — image-to-G-code conversion in Python and motion
+          control via Repetier-Host — to convert any PNG into a clean two-color drawing with repeatable pen
+          registration.
+        </p>
+        <div class="project-pills">
+          <span class="pill">Python</span>
+          <span class="pill">G-code</span>
+          <span class="pill">Stepper Motors</span>
+          <span class="pill">3D Printing</span>
+          <span class="pill">CNC</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+    </div>
+    <!-- 6. Calibration -->
+    <div class="project-card" data-project="6">
+      <span class="project-tag tag-dynamics">Dynamics</span>
+      <div class="project-visual" style="height:160px">
+        <div class="project-visual-bg v-calib"></div>
+        <span>FREQ</span>
+      </div>
+      <div class="project-body">
+        <div class="project-index">06 — Instrumentation + Analysis</div>
+        <h3 class="project-title">CALIBRATION OF A MECHANICAL SYSTEM</h3>
+        <div class="project-org">Boston University &nbsp;·&nbsp; Coursework</div>
+        <p class="project-desc">
+          Built and instrumented a spring-mass oscillator test rig with an optical displacement sensor and DAQ
+          board. Developed a calibration pipeline to extract resonance behavior, validated the magnitude ratio and
+          phase response against the theoretical model, and estimated dynamic parameters (k, ζ, ωn) with propagated
+          uncertainty.
+        </p>
+        <div class="project-pills">
+          <span class="pill">MATLAB</span>
+          <span class="pill">DAQ</span>
+          <span class="pill">Vibrations</span>
+          <span class="pill">Uncertainty Analysis</span>
+        </div>
+        <span class="project-hint">View details →</span>
+      </div>
+    </div>
+    <!-- 7. CFD / COMSOL -->
+    <div class="project-card" data-project="7">
+      <span class="project-tag tag-cfd">Simulation</span>
+      <div class="project-visual" style="height:160px">
+        <div class="project-visual-bg v-cad"></div>
+        <span>SIM</span>
+      </div>
+      <div class="project-body">
+        <div class="project-index">07 — Simulation + Analysis</div>
+        <h3 class="project-title">CAD &amp; SIMULATION HIGHLIGHTS</h3>
+        <div class="project-org">Boston University &nbsp;·&nbsp; Coursework / Research</div>
+        <p class="project-desc">
+          Independently modeled assemblies and ran simulations across multiple projects: a COMSOL conjugate heat
+          transfer model of a heated fluid past a sphere across Reynolds numbers (validated against the
+          lumped-capacitance model), OpenFOAM CFD studies (cylinder flow, channel flow, airfoil), and SolidWorks FEA
+          for structural and thermal validation on rocket hardware.
+        </p>
+        <div class="project-pills">
+          <span class="pill">OpenFOAM</span>
+          <span class="pill">COMSOL</span>
+          <span class="pill">SolidWorks FEA</span>
+          <span class="pill">MATLAB</span>
+          <span class="pill">ParaView</span>
+        </div>
+        <span class="project-hint">View details →</span>
       </div>
     </div>
   </div>
 </section>
-
 <!-- SKILLS -->
 <section class="skills-section" id="skills">
   <div class="section-header">
-    <span class="section-number">// 00</span>
+    <span class="section-number">// 01</span>
     <h2 class="section-title">SKILLS</h2>
     <div class="section-line"></div>
   </div>
@@ -635,253 +801,6 @@
     </div>
   </div>
 </section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="section-header">
-    <span class="section-number">// 01</span>
-    <h2 class="section-title">PROJECTS</h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="projects-grid">
-
-    <!-- 1. Centrifugal Fuel Pump -->
-    <div class="project-card featured">
-      <span class="project-tag tag-burpg">BURPG</span>
-      <div class="project-visual">
-        <div class="project-visual-bg v-rocket"></div>
-        <span>PUMP</span>
-      </div>
-      <div class="project-body">
-        <div class="project-index">01 — Mechanical Design + Electronics</div>
-        <h3 class="project-title">CENTRIFUGAL FUEL PUMP</h3>
-        <p class="project-desc">
-          Designed a compact centrifugal pump assembly for the BU Rocket Propulsion Group's liquid bipropellant system.
-          Sized from first principles using Bernoulli, continuity, and momentum equations to meet a 75 mL/s flow rate
-          and 21 ft head target. Built for rapid prototyping: 3D-printed housing and impeller, machined aluminum shaft.
-          Also designed a custom MOSFET H-bridge motor driver in KiCad with a 555-timer PWM stage for speed and direction control.
-        </p>
-        <div class="project-pills">
-          <span class="pill">SolidWorks</span>
-          <span class="pill">KiCad</span>
-          <span class="pill">3D Printing</span>
-          <span class="pill">Lathe &amp; Mill</span>
-          <span class="pill">Fluid Mechanics</span>
-          <span class="pill">H-Bridge</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2. Tube Swaging Automation -->
-    <div class="project-card featured">
-      <span class="project-tag tag-capstone">Capstone</span>
-      <div class="project-visual">
-        <div class="project-visual-bg v-swage"></div>
-        <span>AUTO</span>
-      </div>
-      <div class="project-body">
-        <div class="project-index">02 — Automation + Controls</div>
-        <h3 class="project-title">TUBE SWAGING AUTOMATION</h3>
-        <p class="project-desc">
-          Senior capstone project for VitaNeedle. Developed a benchtop automation system to replace manual tube loading
-          and positioning in their swaging process. Designed and machined the gripper and mounting hardware, built the
-          full Arduino-based control system with state-machine logic, Hall-effect homing, E-stop, OLED display, and
-          LED/buzzer operator interface. Also designed the complete circuit schematic in KiCad with separate power and control enclosures.
-        </p>
-        <div class="project-pills">
-          <span class="pill">Arduino</span>
-          <span class="pill">KiCad</span>
-          <span class="pill">State Machine</span>
-          <span class="pill">Hall Effect</span>
-          <span class="pill">CNC Machining</span>
-          <span class="pill">SolidWorks</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. Nozzle + Ignition -->
-    <div class="project-card">
-      <span class="project-tag tag-burpg">BURPG</span>
-      <div class="project-visual" style="height:160px">
-        <div class="project-visual-bg v-nozzle"></div>
-        <span>FIRE</span>
-      </div>
-      <div class="project-body">
-        <div class="project-index">03 — Propulsion + Embedded</div>
-        <h3 class="project-title">NOZZLE + IGNITION TEST SYSTEM</h3>
-        <p class="project-desc">
-          Designed and FEA-validated multiple fixed-geometry rocket nozzles in SolidWorks, achieving ~12% thrust efficiency
-          gain. Built a flight computer around an Arduino Nano with NMOS drivers for igniter and solenoid valve control,
-          SD card data logging from a load cell, and real nozzle firings on a test rig.
-        </p>
-        <div class="project-pills">
-          <span class="pill">SolidWorks</span>
-          <span class="pill">FEA</span>
-          <span class="pill">Arduino Nano</span>
-          <span class="pill">Propulsion Theory</span>
-          <span class="pill">Load Cell DAQ</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. Blood Pump -->
-    <div class="project-card">
-      <span class="project-tag tag-mech">Biomedical</span>
-      <div class="project-visual" style="height:160px">
-        <div class="project-visual-bg v-blood"></div>
-        <span>PUMP</span>
-      </div>
-      <div class="project-body">
-        <div class="project-index">04 — Mechanical + Controls</div>
-        <h3 class="project-title">PERISTALTIC BLOOD PUMP</h3>
-        <p class="project-desc">
-          Contributed to a peristaltic pump prototype for biomedical laboratory use. Machined key structural components
-          in aluminum on the lathe and mill for precise motor alignment, and developed an analog motor driver circuit
-          for velocity control during testing.
-        </p>
-        <div class="project-pills">
-          <span class="pill">Lathe &amp; Mill</span>
-          <span class="pill">Analog Circuits</span>
-          <span class="pill">Motor Control</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. Drawing Machine -->
-    <div class="project-card">
-      <span class="project-tag tag-embedded">Electromech</span>
-      <div class="project-visual" style="height:160px">
-        <div class="project-visual-bg v-draw"></div>
-        <span>DRAW</span>
-      </div>
-      <div class="project-body">
-        <div class="project-index">05 — Electromechanical Design</div>
-        <h3 class="project-title">TWO-COLOR DRAWING MACHINE</h3>
-        <p class="project-desc">
-          Designed and built a two-axis CNC drawing machine with a custom aluminum frame, 3D-printed pen-change mechanism,
-          and full software pipeline: image-to-G-code conversion in Python, motion control via Repetier-Host. Converts
-          any PNG into a clean two-color drawing with repeatable pen registration.
-        </p>
-        <div class="project-pills">
-          <span class="pill">Python</span>
-          <span class="pill">G-code</span>
-          <span class="pill">Stepper Motors</span>
-          <span class="pill">3D Printing</span>
-          <span class="pill">CNC</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. Calibration -->
-    <div class="project-card">
-      <span class="project-tag tag-mech">Dynamics</span>
-      <div class="project-visual" style="height:160px">
-        <div class="project-visual-bg v-calib"></div>
-        <span>FREQ</span>
-      </div>
-      <div class="project-body">
-        <div class="project-index">06 — Instrumentation + Analysis</div>
-        <h3 class="project-title">CALIBRATION OF A MECHANICAL SYSTEM</h3>
-        <p class="project-desc">
-          Built and instrumented a spring-mass oscillator test rig with an optical displacement sensor and DAQ board.
-          Developed a calibration pipeline to extract resonance behavior, validated against the lumped-capacitance model,
-          and estimated dynamic parameters (k, ζ, ωn) with propagated uncertainty.
-        </p>
-        <div class="project-pills">
-          <span class="pill">MATLAB</span>
-          <span class="pill">DAQ</span>
-          <span class="pill">Vibrations</span>
-          <span class="pill">Uncertainty Analysis</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7. CFD / COMSOL -->
-    <div class="project-card">
-      <span class="project-tag tag-cfd">CFD / FEA</span>
-      <div class="project-visual" style="height:160px">
-        <div class="project-visual-bg v-cad"></div>
-        <span>SIM</span>
-      </div>
-      <div class="project-body">
-        <div class="project-index">07 — Simulation + Analysis</div>
-        <h3 class="project-title">CAD &amp; SIMULATION HIGHLIGHTS</h3>
-        <p class="project-desc">
-          Independently modeled assemblies and ran simulations across multiple projects: COMSOL conjugate heat transfer
-          past a sphere across Reynolds numbers, OpenFOAM CFD (cylinder flow, channel flow, airfoil), and SolidWorks FEA
-          for structural and thermal validation on rocket hardware.
-        </p>
-        <div class="project-pills">
-          <span class="pill">OpenFOAM</span>
-          <span class="pill">COMSOL</span>
-          <span class="pill">SolidWorks FEA</span>
-          <span class="pill">MATLAB</span>
-          <span class="pill">ParaView</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about-section" id="about">
-  <div class="section-header">
-    <span class="section-number">// 02</span>
-    <h2 class="section-title">ABOUT</h2>
-    <div class="section-line"></div>
-  </div>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>
-        I'm a mechanical engineering senior at <strong>Boston University</strong> with a minor in electrical engineering,
-        finishing up in 2025. My work spans the full stack of physical systems: fluid and structural analysis,
-        embedded electronics, and the mechanical design that connects them.
-      </p>
-      <p>
-        I've worked on liquid bipropellant rocket hardware with <strong>BURPG</strong>, built industrial automation
-        systems for manufacturing clients, and designed analog circuits and embedded controllers from scratch.
-        I tend to approach problems from first principles and build things that actually get tested.
-      </p>
-      <p>
-        This fall I'm starting the <strong>MS in Mechanical Engineering at Carnegie Mellon University</strong>,
-        concentrating in Robotics and Control Systems. I'm interested in electromechanical systems, motion control,
-        and energy-focused engineering.
-      </p>
-    </div>
-    <div class="about-details">
-      <div class="detail-row">
-        <span class="detail-label">Currently</span>
-        <span class="detail-value">Boston University, Senior</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Next</span>
-        <span class="detail-value">Carnegie Mellon University, MS MechE</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Concentration</span>
-        <span class="detail-value">Robotics &amp; Control Systems</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Minor</span>
-        <span class="detail-value">Electrical Engineering</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Interests</span>
-        <span class="detail-value">Electromechanical Systems, Energy</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Email</span>
-        <span class="detail-value">adriantaboadaperez@gmail.com</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">LinkedIn</span>
-        <span class="detail-value">linkedin.com/in/adriantaboadaperez</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- CONTACT -->
 <section class="contact-section" id="contact">
   <p class="contact-eyebrow">Let's work together</p>
@@ -892,12 +811,144 @@
     <a href="https://linkedin.com/in/adriantaboadaperez" target="_blank" class="btn btn-outline">LinkedIn</a>
   </div>
 </section>
-
 <!-- FOOTER -->
 <footer>
   <span>Adrian Taboada Perez &mdash; Engineering Portfolio</span>
-  <span>Boston University · Carnegie Mellon University</span>
+  <span>Boston University '26 · Carnegie Mellon University '28</span>
 </footer>
 
+<!-- PROJECT MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-card" id="modalCard" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+    <div class="modal-index" id="modalIndex"></div>
+    <h3 class="modal-title" id="modalTitle"></h3>
+    <div class="modal-org" id="modalOrg"></div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-pills" id="modalPills"></div>
+    <div id="modalLinkWrap"></div>
+  </div>
+</div>
+
+<script>
+  const PROJECTS = {
+    1: {
+      index: "01 — Automation + Controls",
+      title: "TUBE SWAGING AUTOMATION",
+      org: "Vita Needle Company · Sep 2025 – May 2026",
+      body: [
+        "Vita Needle's tube-swaging process relied heavily on manual loading and positioning, which introduced inconsistency in alignment and repeatability. They asked our team to build a benchtop system that could handle the loading and positioning steps in a more controlled way.",
+        "On the mechanical side, I built the actuation around a lead-screw slide and a pneumatic gripper, and designed custom gripper jaws to hold the needle stock during loading. The gripper pads were CNC-machined for precise part contact, while the supporting structure used 3D-printed fixtures to speed up iteration, all mounted to a machined aluminum base.",
+        "On the electronics side, I developed the full control system and HMI around a microcontroller: Hall-effect sensors for position referencing and homing, a solenoid-driven gripper, an OLED display and LED/buzzer status indicators, and start/stop controls for the operator. Power and control electronics were split into separate enclosures to keep higher-voltage wiring away from the low-voltage logic, and a fail-safe E-STOP circuit built from relays and contactors handled operator safety.",
+        "The finished prototype replaced the manual feeding process and hit 98% consistent, high-quality swages in testing."
+      ],
+      pills: ["Lead-Screw Actuator","Pneumatic Gripper","Arduino","Hall Effect","HMI","E-STOP Safety Circuit","KiCad","CNC Machining"],
+      link: { text: "Watch demo video", url: "https://drive.google.com/file/d/1UAgbVsmxJIc7hvlyhx7n9pGn8E1jxNZ2/view?usp=sharing" }
+    },
+    2: {
+      index: "02 — Mechanical Design + Electronics",
+      title: "CENTRIFUGAL FUEL PUMP",
+      org: "BU Rocket Propulsion Group (BURPG) · Oct 2025 – Dec 2025",
+      body: [
+        "BURPG needed a way to refuel a liquid bipropellant propulsion system between test loads, so I designed a compact centrifugal pump assembly to do it. The target spec was a 12V system delivering at least 75 mL/s, roughly 21 ft of head, and enough capacity for 4+ fuel loads per charge.",
+        "I sized the pump from first principles rather than guessing at a part — Bernoulli's head-loss equation, continuity, pump power/efficiency relations, and linear momentum conservation to get to a target impeller radius, outlet velocity, and pump diameter. From there I optimized the impeller geometry for the flow target before finalizing the design in SolidWorks.",
+        "The housing and impeller were 3D-printed to keep prototyping fast, with a custom aluminum shaft turned on the lathe for the motor-impeller interface, and a brushless DC motor for the drive.",
+        "For testing, I also designed a standalone analog driver: a 555-timer PWM stage (adjustable duty cycle via potentiometer) feeds into a mechanical forward/reverse switch, which routes the signal into a MOSFET H-bridge that drives the motor bidirectionally."
+      ],
+      pills: ["SolidWorks","BLDC Motor","Fluid Dynamics","3D Printing","Lathe & Mill","555 Timer PWM","H-Bridge","KiCad"]
+    },
+    3: {
+      index: "03 — Propulsion + Embedded",
+      title: "ROCKET NOZZLE & IGNITION CONTROL SYSTEM",
+      org: "BU Rocket Propulsion Group (BURPG) · Sep 2024 – Dec 2024",
+      body: [
+        "I modeled several fixed-geometry rocket nozzles in SolidWorks to compare thrust performance, along with a custom adapter interface to mate cleanly with BURPG's propulsion system. Iterative FEA passes on each candidate flagged thermal and structural risk areas and guided geometry changes for safety margin, landing on a design with a simulated ~12% thrust efficiency gain over baseline.",
+        "The selected nozzle was 3D-printed and test-fit against the real adapter hardware before any live testing.",
+        "For the test system, I built a flight computer around a microcontroller running code I wrote in C++, using two NMOS driver stages to actuate an electronic match igniter and a solenoid fuel valve in sequence. An SD card module logged thrust data from a load cell during firings.",
+        "That flight computer coordinated valve timing, ignition, and data capture during real nozzle firings on a test rig, which is what let us actually validate the nozzle at target conditions instead of just in simulation."
+      ],
+      pills: ["SolidWorks","FEA","Arduino Nano","C++","Load Cell DAQ","Propulsion Theory"]
+    },
+    4: {
+      index: "04 — Mechanical + Controls",
+      title: "PERISTALTIC BLOOD PUMP",
+      org: "Boston University · Biomedical Engineering Lab",
+      body: [
+        "I contributed to a peristaltic pump prototype built for biomedical lab use, aimed at a compact, mechanically driven pumping system.",
+        "My part of the work was mostly on the fabrication and drive side: machining key structural components in aluminum on the lathe and mill for precise motor alignment, and developing an analog motor driver circuit for velocity control so we could tune flow rate during testing."
+      ],
+      pills: ["Lathe & Mill","Analog Circuits","Motor Control"]
+    },
+    5: {
+      index: "05 — Electromechanical Design",
+      title: "TWO-COLOR DRAWING MACHINE",
+      org: "Boston University · Personal Project",
+      body: [
+        "This one started as a side project — a two-axis CNC drawing machine that could take any image and draw it in two colors with clean, repeatable pen registration. I built the frame out of aluminum extrusion and designed a 3D-printed pen-changing mechanism to swap between the two pens mid-drawing.",
+        "The software side went through a few steps: generating drawing vectors from source images, running them through Python scripts I wrote to process and convert them, then feeding the resulting G-code through Repetier-Host for motion control.",
+        "Getting consistent pen alignment across color changes took more tuning than the mechanical build did, honestly — but the end result reliably converts a PNG into a clean two-color drawing."
+      ],
+      pills: ["Python","G-code","Stepper Motors","3D Printing","CNC"]
+    },
+    6: {
+      index: "06 — Instrumentation + Analysis",
+      title: "CALIBRATION OF A MECHANICAL SYSTEM",
+      org: "Boston University · Coursework",
+      body: [
+        "For this project I built and instrumented a spring-mass oscillator test rig using an optical displacement sensor and a DAQ board, then wrote a calibration pipeline to turn raw sensor voltage and driving-frequency settings into net displacement data.",
+        "Sweeping the driving frequency and measuring the response gave the expected resonance behavior: the magnitude ratio climbed approaching resonance, peaked closest to it, then fell off at higher frequencies. Phase lag tracked the theoretical model too — near 0° at low frequency, around 90° near resonance, and trending toward 180° at higher frequencies.",
+        "From the frequency-response data I estimated the system's dynamic parameters — spring constant, natural frequency, damping ratio, and damping constant — with propagated measurement uncertainty, and checked them against the theoretical model."
+      ],
+      pills: ["MATLAB","DAQ","Vibrations","Uncertainty Analysis"]
+    },
+    7: {
+      index: "07 — Simulation + Analysis",
+      title: "CAD & SIMULATION HIGHLIGHTS",
+      org: "Boston University · Coursework / Research",
+      body: [
+        "A collection of independent modeling and simulation work across a few different classes and projects, all built in SolidWorks or Fusion — part design, multi-component assemblies, and manufacturing drawings.",
+        "In COMSOL, I built a transient conjugate heat transfer model of a heated fluid past a sphere, comparing surface and center temperature over time across a range of Reynolds numbers and checking the results against the theoretical lumped-capacitance model. From the simulated surface heat flux and temperature difference, I also computed the local convective heat transfer coefficient (h) around the sphere at each Reynolds number.",
+        "Separately, I ran OpenFOAM CFD studies on cylinder flow, channel flow, and airfoil cases, and used SolidWorks FEA for structural and thermal validation on rocket hardware from the propulsion projects above."
+      ],
+      pills: ["OpenFOAM","COMSOL","SolidWorks FEA","MATLAB","ParaView"]
+    }
+  };
+
+  const overlay = document.getElementById('modalOverlay');
+  const modalCard = document.getElementById('modalCard');
+  const modalIndex = document.getElementById('modalIndex');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalOrg = document.getElementById('modalOrg');
+  const modalBody = document.getElementById('modalBody');
+  const modalPills = document.getElementById('modalPills');
+  const modalLinkWrap = document.getElementById('modalLinkWrap');
+
+  function openModal(id) {
+    const p = PROJECTS[id];
+    if (!p) return;
+    modalIndex.textContent = p.index;
+    modalTitle.textContent = p.title;
+    modalOrg.textContent = p.org;
+    modalBody.innerHTML = p.body.map(par => `<p>${par}</p>`).join('');
+    modalPills.innerHTML = p.pills.map(pl => `<span class="pill">${pl}</span>`).join('');
+    modalLinkWrap.innerHTML = p.link
+      ? `<a class="modal-link" href="${p.link.url}" target="_blank" rel="noopener">${p.link.text} →</a>`
+      : '';
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('.project-card').forEach(card => {
+    card.addEventListener('click', () => openModal(card.getAttribute('data-project')));
+  });
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+</script>
 </body>
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title id="pageTitle">Project — Adrian Taboada Perez</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">ATP // PORTFOLIO</a>
+  <ul class="nav-links">
+    <li><a href="index.html#projects">All Projects</a></li>
+    <li><a href="index.html#skills">Skills</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main class="project-page" id="pageContent">
+  <div class="pp-top">
+    <span class="pp-tag" id="ppTag"></span>
+    <span class="pp-index" id="ppIndex"></span>
+  </div>
+  <h1 class="pp-title" id="ppTitle"></h1>
+  <div class="pp-org" id="ppOrg"></div>
+  <div class="pp-visual" id="ppVisual">
+    <div class="project-visual-bg" id="ppVisualBg"></div>
+    <span id="ppVisualLabel"></span>
+  </div>
+  <div class="pp-body" id="ppBody"></div>
+  <div class="pp-pills" id="ppPills"></div>
+  <div id="ppLinkWrap"></div>
+  <div class="pp-nav">
+    <a class="btn btn-outline" id="ppPrev">← Previous</a>
+    <a class="btn btn-outline" href="index.html#projects">All Projects</a>
+    <a class="btn btn-outline" id="ppNext">Next →</a>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span>Adrian Taboada Perez &mdash; Engineering Portfolio</span>
+  <span>Boston University '26 · Carnegie Mellon University '28</span>
+</footer>
+
+<script src="projects-data.js"></script>
+<script>
+  const ids = Object.keys(PROJECTS).map(Number).sort((a,b) => a - b);
+  const params = new URLSearchParams(window.location.search);
+  let id = parseInt(params.get('id'), 10);
+  if (!PROJECTS[id]) id = ids[0];
+  const p = PROJECTS[id];
+
+  document.getElementById('pageTitle').textContent = p.title + " — Adrian Taboada Perez";
+
+  const tagEl = document.getElementById('ppTag');
+  tagEl.textContent = p.tagLabel;
+  tagEl.className = 'pp-tag ' + p.tagClass;
+
+  document.getElementById('ppIndex').textContent = p.num + " — " + p.category;
+  document.getElementById('ppTitle').textContent = p.title;
+  document.getElementById('ppOrg').textContent = p.org;
+
+  document.getElementById('ppVisualBg').className = 'project-visual-bg ' + p.visualClass;
+  document.getElementById('ppVisualLabel').textContent = p.visualLabel;
+
+  document.getElementById('ppBody').innerHTML = p.body.map(par => `<p>${par}</p>`).join('');
+  document.getElementById('ppPills').innerHTML = p.pills.map(pl => `<span class="pill">${pl}</span>`).join('');
+
+  document.getElementById('ppLinkWrap').innerHTML = p.link
+    ? `<a class="pp-link" href="${p.link.url}" target="_blank" rel="noopener">${p.link.text} →</a>`
+    : '';
+
+  const idx = ids.indexOf(id);
+  const prevId = ids[(idx - 1 + ids.length) % ids.length];
+  const nextId = ids[(idx + 1) % ids.length];
+  const prevEl = document.getElementById('ppPrev');
+  const nextEl = document.getElementById('ppNext');
+  prevEl.href = `project.html?id=${prevId}`;
+  nextEl.href = `project.html?id=${nextId}`;
+  prevEl.textContent = `← ${PROJECTS[prevId].title}`;
+  nextEl.textContent = `${PROJECTS[nextId].title} →`;
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adrian Taboada Perez — Engineering Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">ATP // PORTFOLIO</span>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-grid-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Mechatronics &amp; Electromechanical Design</div>
+    <h1 class="hero-name">ADRIAN<br><span class="accent">TABOADA</span><br>PEREZ</h1>
+    <p class="hero-title">MECHATRONICS · POWER ELECTRONICS · CONTROL SYSTEMS</p>
+    <p class="hero-bio">
+      I graduated from <strong>Boston University</strong> in May 2026 with a BS in Mechanical Engineering and a
+      minor in Electrical Engineering, and I'm now working on an MS in Mechanical Engineering at
+      <strong>Carnegie Mellon University</strong>, focusing on robotics and control systems — graduating spring
+      2028, if all goes to plan.
+    </p>
+    <p class="hero-bio">
+      Most of what I end up building needs both a mechanical engineer and an electrical engineer in the room, so
+      that's usually the project I go looking for: something that needs a part machined, a circuit built, and code
+      written before it actually does anything. Pumps, grippers, flight computers, whatever — if it has to move and
+      it has to be controlled, I'm interested.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="mailto:adriantaboadaperez@gmail.com" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-number">// 00</span>
+    <h2 class="section-title">PROJECTS</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+    <!-- 1. Tube Swaging Automation -->
+    <a class="project-card" href="project.html?id=1">
+      <span class="project-num">01</span>
+      <span class="project-tag tag-industry">Automation</span>
+      <div class="project-visual">
+        <div class="project-visual-bg v-swage"></div>
+        <span>AUTO</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">TUBE SWAGING AUTOMATION</h3>
+        <div class="project-org">Vita Needle Company</div>
+        <p class="project-teaser">Built an automation device for Vita Needle's tube swaging line — actuator, gripper, and a full control system with HMI and E-STOP safety.</p>
+        <span class="project-hint">View project →</span>
+      </div>
+    </a>
+    <!-- 2. Centrifugal Fuel Pump -->
+    <a class="project-card" href="project.html?id=2">
+      <span class="project-num">02</span>
+      <span class="project-tag tag-burpg">Propulsion</span>
+      <div class="project-visual">
+        <div class="project-visual-bg v-rocket"></div>
+        <span>PUMP</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">CENTRIFUGAL FUEL PUMP</h3>
+        <div class="project-org">BU Rocket Propulsion Group</div>
+        <p class="project-teaser">Sized, modeled, and built a centrifugal fuel pump for BURPG's propulsion system, plus a custom 555-timer/H-bridge motor driver.</p>
+        <span class="project-hint">View project →</span>
+      </div>
+    </a>
+    <!-- 3. Nozzle + Ignition -->
+    <a class="project-card" href="project.html?id=3">
+      <span class="project-num">03</span>
+      <span class="project-tag tag-burpg">Propulsion</span>
+      <div class="project-visual">
+        <div class="project-visual-bg v-nozzle"></div>
+        <span>FIRE</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">ROCKET NOZZLE &amp; IGNITION CONTROL SYSTEM</h3>
+        <div class="project-org">BU Rocket Propulsion Group</div>
+        <p class="project-teaser">Modeled and FEA-tested rocket nozzles for a 12% thrust gain, then built the flight computer that fired them.</p>
+        <span class="project-hint">View project →</span>
+      </div>
+    </a>
+    <!-- 4. Blood Pump -->
+    <a class="project-card" href="project.html?id=4">
+      <span class="project-num">04</span>
+      <span class="project-tag tag-mech">Biomedical</span>
+      <div class="project-visual">
+        <div class="project-visual-bg v-blood"></div>
+        <span>PUMP</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">PERISTALTIC BLOOD PUMP</h3>
+        <div class="project-org">Boston University</div>
+        <p class="project-teaser">Machined structural components and built the analog driver for a peristaltic blood pump prototype.</p>
+        <span class="project-hint">View project →</span>
+      </div>
+    </a>
+    <!-- 5. Drawing Machine -->
+    <a class="project-card" href="project.html?id=5">
+      <span class="project-num">05</span>
+      <span class="project-tag tag-embedded">Electromech</span>
+      <div class="project-visual">
+        <div class="project-visual-bg v-draw"></div>
+        <span>DRAW</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">TWO-COLOR DRAWING MACHINE</h3>
+        <div class="project-org">Boston University</div>
+        <p class="project-teaser">A two-axis CNC drawing machine with a custom pen-changer that turns any PNG into a two-color drawing.</p>
+        <span class="project-hint">View project →</span>
+      </div>
+    </a>
+    <!-- 6. Calibration -->
+    <a class="project-card" href="project.html?id=6">
+      <span class="project-num">06</span>
+      <span class="project-tag tag-dynamics">Dynamics</span>
+      <div class="project-visual">
+        <div class="project-visual-bg v-calib"></div>
+        <span>FREQ</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">CALIBRATION OF A MECHANICAL SYSTEM</h3>
+        <div class="project-org">Boston University</div>
+        <p class="project-teaser">Instrumented a spring-mass oscillator rig to extract resonance behavior and estimate dynamic system parameters.</p>
+        <span class="project-hint">View project →</span>
+      </div>
+    </a>
+    <!-- 7. CFD / COMSOL -->
+    <a class="project-card" href="project.html?id=7">
+      <span class="project-num">07</span>
+      <span class="project-tag tag-cfd">Simulation</span>
+      <div class="project-visual">
+        <div class="project-visual-bg v-cad"></div>
+        <span>SIM</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">CAD &amp; SIMULATION HIGHLIGHTS</h3>
+        <div class="project-org">Boston University</div>
+        <p class="project-teaser">COMSOL, OpenFOAM, and SolidWorks FEA work spanning heat transfer, CFD, and structural validation.</p>
+        <span class="project-hint">View project →</span>
+      </div>
+    </a>
+  </div>
+</section>
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-header">
+    <span class="section-number">// 01</span>
+    <h2 class="section-title">SKILLS</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-item">
+      <div class="skill-category">CAD &amp; Simulation</div>
+      <div class="skill-tags">
+        <span class="skill-tag">SolidWorks</span>
+        <span class="skill-tag">Fusion 360</span>
+        <span class="skill-tag">COMSOL</span>
+        <span class="skill-tag">OpenFOAM</span>
+        <span class="skill-tag">FEA</span>
+        <span class="skill-tag">CFD</span>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-category">Electronics &amp; Embedded</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Arduino</span>
+        <span class="skill-tag">STM32</span>
+        <span class="skill-tag">KiCad</span>
+        <span class="skill-tag">LTspice</span>
+        <span class="skill-tag">PWM/H-bridge</span>
+        <span class="skill-tag">Bare-metal C</span>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-category">Programming</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">MATLAB</span>
+        <span class="skill-tag">C/C++</span>
+        <span class="skill-tag">G-code</span>
+        <span class="skill-tag">LaTeX</span>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-category">Manufacturing</div>
+      <div class="skill-tags">
+        <span class="skill-tag">CNC Machining</span>
+        <span class="skill-tag">Lathe &amp; Mill</span>
+        <span class="skill-tag">3D Printing</span>
+        <span class="skill-tag">Rapid Prototyping</span>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-category">Engineering</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Fluid Mechanics</span>
+        <span class="skill-tag">Thermodynamics</span>
+        <span class="skill-tag">Control Systems</span>
+        <span class="skill-tag">Power Electronics</span>
+        <span class="skill-tag">Dynamics</span>
+      </div>
+    </div>
+    <div class="skill-item">
+      <div class="skill-category">Tools &amp; Platforms</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Linux/SCC Cluster</span>
+        <span class="skill-tag">ParaView</span>
+        <span class="skill-tag">STM32CubeIDE</span>
+        <span class="skill-tag">Repetier-Host</span>
+        <span class="skill-tag">Git</span>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <p class="contact-eyebrow">Let's work together</p>
+  <h2 class="contact-heading">GET IN TOUCH</h2>
+  <p class="contact-sub">Open to research collaborations, internships, and interesting engineering problems.</p>
+  <div class="contact-links">
+    <a href="mailto:adriantaboadaperez@gmail.com" class="btn btn-primary">adriantaboadaperez@gmail.com</a>
+    <a href="https://linkedin.com/in/adriantaboadaperez" target="_blank" class="btn btn-outline">LinkedIn</a>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer>
+  <span>Adrian Taboada Perez &mdash; Engineering Portfolio</span>
+  <span>Boston University '26 · Carnegie Mellon University '28</span>
+</footer>
+</body>
+</html>

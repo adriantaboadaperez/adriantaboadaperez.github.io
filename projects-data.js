@@ -9,9 +9,11 @@ const PROJECTS = {
     org: "Vita Needle Company · Sep 2025 – May 2026",
     teaser: "Built an automation device for Vita Needle's tube swaging line: actuator, gripper, and a full control system with HMI and E-STOP safety.",
     body: [
-      "Vita Needle's tube swaging process relied heavily on manual loading and positioning, which introduced inconsistency in alignment and repeatability. They asked our team to build a benchtop system that could handle the loading and positioning steps in a more controlled way.",
-      "On the mechanical side, we built the actuation around a stepper-driven linear slide and a pneumatic gripper (solenoid valve plus air compressor), with custom gripper jaws to hold the needle stock during loading. The gripper pads were CNC machined for precise part contact, while supporting fixtures were 3D printed to speed up iteration, all mounted to a machined aluminum base.",
-      "I responsible for the HMI, controls and software. On the electronics side, I designed the full control system and HMI around an Arduino Mega: Hall-effect sensing for position referencing and homing, an I2C OLED display, LED status indicators, a buzzer, and start/stop/E-STOP controls. Power and control electronics were split into separate enclosures, a Power Box carrying the 24V supply, stepper driver, and solenoid relay, and a Control Box carrying the low-voltage logic, so higher-power wiring stayed isolated from the signal side. A buck converter steps 24V down to 10V for the control electronics, and the E-STOP is wired normally-on so a fault or disconnect defaults to a safe stop.",
+      "Vita Needle's tube swaging process relied heavily on manual loading and positioning, which introduced inconsistency in alignment and repeatability. Our team of four built a benchtop automation system to handle the loading and positioning steps in a more controlled way. My scope on the project was the electronics, firmware, and the CAD/design of the Control Box, Power Box, and HMI; teammates handled the mounting hardware, the linear slide integration, and manufacturing the gripper mechanism.",
+      "I designed the Control Box (CB-001) and Power Box (PB-001) as separate 3D-printed PLA enclosures, each built around a breadboard with screw terminals for secure, serviceable wiring. The Control Box houses the low-current logic: an Arduino Mega, a buck converter stepping the 24V supply down to about 10V, the start/stop buttons, status LEDs, an E-STOP button, a buzzer, and a 0.96in OLED. The Power Box houses the high-current side: the stepper motor driver, the solenoid valve connections, and the main ON/OFF switch.",
+      "The firmware is a finite state machine: Idle, then Pre-Start Open (a five-second window to load the needle), Pre-Start Closed (gripper seats for three seconds before motion starts), fast and slow forward feed into the swager, a dwell state (tuned down to zero seconds after testing showed it didn't help), slow and fast return, and a Home Wait state that holds the gripper open for five seconds so the operator can remove the finished part before the cycle loops back to Idle. Pressing Stop at any point immediately retracts the slider to home instead of finishing the cycle. I also scoped an on-device settings menu for adjusting travel distances from the HMI, but concluded the Arduino Mega wasn't the right platform for a responsive UI and left it unimplemented, flagging an STM32 upgrade as the better path for that feature.",
+      "On the drive side, the stepper driver runs closed-loop off the motor's integrated magnetic encoder, with the Arduino sending STEP/DIR signals at 3200 microsteps per revolution, calibrated to 0.5 cm of linear travel per revolution. The gripper's solenoid valve is a 24V load, so it's switched through an NMOS stage (gate resistor plus pull-down, with a flyback diode across the solenoid for the inductive kick) rather than driven directly off the Arduino.",
+      "The E-STOP is a relay-based fail-safe rather than a simple power cut: a normally-closed E-STOP keeps a relay energized, which enables the solenoid supply and lets the motor driver run normally. Pressing E-STOP de-energizes that relay, which cuts solenoid power, reroutes the driver's enable line through a regulator to force it into its disabled state, and drops a contactor that removes AC power from the swaging machine itself, all from the loss of a single signal, so any fault defaults to a safe state.",
       "The finished prototype replaced the manual feeding process and hit 98% consistent, high-quality swages across a 100-piece test run, passing pin gage testing with high concentricity and straight, repeatable swage lengths."
     ],
     images: [
@@ -24,7 +26,7 @@ const PROJECTS = {
       { src: "images/swaging/results.png", caption: "Swaging results across a 100-piece test run" },
       { src: "images/swaging/device-angled.png", caption: "Finished prototype" }
     ],
-    pills: ["Linear Slide + Stepper Drive", "Pneumatic Gripper", "Arduino Mega", "Hall Effect", "HMI", "E-STOP Safety Circuit", "KiCad", "CNC Machining"],
+    pills: ["Finite State Machine", "Arduino Mega", "NMOS Solenoid Driver", "Relay Fail-Safe", "Stepper + Encoder", "HMI/CAD Design", "KiCad", "3D-Printed Enclosures"],
     link: { text: "Watch demo video", url: "https://drive.google.com/file/d/1wtHHNYq930eD5mf7K11ZIvf9CXFs---d/view?usp=drive_link" }
   },
   2: {
@@ -32,20 +34,20 @@ const PROJECTS = {
     category: "Mechanical Design + Electronics",
     tagClass: "tag-burpg",
     tagLabel: "Propulsion",
-    heroImage: "images/fuel-pump/device-front.png",
+    heroImage: "images/fuel-pump/device-angled.png",
     title: "CENTRIFUGAL FUEL PUMP",
     org: "BU Rocket Propulsion Group (BURPG) · Oct 2025 – Dec 2025",
     teaser: "Sized, modeled, and built a centrifugal fuel pump for BURPG's propulsion system, plus a custom 555-timer/H-bridge motor driver.",
     body: [
-      "BURPG needed a way to refuel a liquid bipropellant propulsion system between test loads, so I led a team of two people in designing a compact centrifugal pump assembly to do it. The target spec was a 12V system delivering at least 75 mL/s, roughly 21 ft of head, and enough capacity for 4+ fuel loads per charge.",
+      "BURPG needed a way to refuel a liquid bipropellant propulsion system between test loads, so I designed a compact centrifugal pump assembly to do it. The target spec was a 12V system delivering at least 75 mL/s, roughly 21 ft of head, and enough capacity for 4+ fuel loads per charge.",
       "I sized the pump from first principles rather than guessing at a part: Bernoulli's head-loss equation, continuity, pump power and efficiency relations, and linear momentum conservation to get to a target impeller radius, outlet velocity, and pump diameter. From there I optimized the impeller geometry for the flow target before finalizing the design in SolidWorks.",
       "The housing and impeller were 3D printed to keep prototyping fast, with a custom aluminum shaft turned on the lathe for the motor-impeller interface, and a brushless DC motor for the drive. The exploded assembly shows the full stack: lid, impeller, aluminum shaft, housing, motor holder, and a sealed ball bearing, all sealed with an o-ring and closed off through a custom valve thread.",
       "For testing, I also designed a standalone analog driver: a 555-timer PWM stage (adjustable duty cycle via potentiometer) feeds into a mechanical forward/reverse switch, which routes the signal into a MOSFET H-bridge that drives the motor bidirectionally."
     ],
     images: [
+      { src: "images/fuel-pump/device-angled.png", caption: "Assembled pump, angled view" },
       { src: "images/fuel-pump/device-front.png", caption: "Assembled pump, front view" },
       { src: "images/fuel-pump/device-top-internal.png", caption: "Top-down view showing the impeller and o-ring seal" },
-      { src: "images/fuel-pump/device-angled.png", caption: "Assembled pump, angled view" },
       { src: "images/fuel-pump/cad-isometric.png", caption: "CAD isometric view" },
       { src: "images/fuel-pump/cad-cross-section.png", caption: "CAD cross-section" },
       { src: "images/fuel-pump/cad-exploded.png", caption: "Exploded assembly: lid, impeller, aluminum shaft, housing, motor holder, sealed ball bearing" },
@@ -64,7 +66,7 @@ const PROJECTS = {
     org: "BU Rocket Propulsion Group (BURPG) · Sep 2024 – Dec 2024",
     teaser: "Modeled and FEA-tested rocket nozzles for a 12% thrust gain, then built the flight computer that fired them.",
     body: [
-      "I led a team of 4 to model several fixed-geometry rocket nozzles in SolidWorks to compare thrust performance, along with a custom flange adapter to mate cleanly with BURPG's propulsion system. Iterative FEA passes on each candidate flagged thermal and structural risk areas around the throat and bolt pattern and guided geometry changes for safety margin, landing on a design with a simulated ~12% thrust efficiency gain over baseline.",
+      "I modeled several fixed-geometry rocket nozzles in SolidWorks to compare thrust performance, along with a custom flange adapter to mate cleanly with BURPG's propulsion system. Iterative FEA passes on each candidate flagged thermal and structural risk areas around the throat and bolt pattern and guided geometry changes for safety margin, landing on a design with a simulated ~12% thrust efficiency gain over baseline.",
       "Performance was backed by a full set of nozzle sizing calculations: critical pressure ratio, throat and exit geometry, exit velocity, specific impulse, and thrust. The selected design worked out to roughly a 0.72 cm throat diameter and 1.84 cm exit diameter, an exit velocity near 2,690 m/s, an Isp around 274 seconds, and an optimal thrust near 35 N (about 8 lbf). The selected nozzle was 3D printed and test-fit against the real adapter hardware before any live testing.",
       "For the test system, I built a flight computer around a microcontroller running code I wrote in C++, using two NMOS driver stages to actuate an electronic match igniter and a solenoid fuel valve in sequence. In the full working system, an SD card module logged thrust data from a load cell during firings.",
       "That flight computer coordinated valve timing, ignition, and data capture during real nozzle firings on a test rig, which is what let us actually validate the nozzle at target conditions instead of just in simulation."
@@ -91,9 +93,9 @@ const PROJECTS = {
     org: "Boston University · Personal Project",
     teaser: "A two-axis CNC drawing machine with a custom pen-changer that turns any PNG into a two-color drawing.",
     body: [
-      "With the goal of creating an 2.5 DOF mechanical system. I worked in a team of three to create a two-axis CNC drawing machine that could take any JPG or PNG image and draw it in two colors with clean, repeatable pen registration. We built the frame out of aluminum extrusion and designed a 3D-printed pen-changing mechanism to swap between the two pens mid-drawing.",
-      "I created a multi-step software workflow, generating drawing vectors from source images, running them through Python scripts I wrote to process and convert them, then feeding the resulting G-code through Repetier-Host for motion control.",
-      "Getting consistent pen alignment across color changes took more tuning than the mechanical build did, honestly, but the end result reliably converts a PNG into a clean two-color drawing, shown here on a bird outline and a more detailed dragon ball illustration."
+      "This one started as a side project: a two-axis CNC drawing machine that could take any image and draw it in two colors with clean, repeatable pen registration. I built the frame out of aluminum extrusion and designed a 3D-printed pen-changing mechanism to swap between the two pens mid-drawing.",
+      "The software side went through a few steps: generating drawing vectors from source images, running them through Python scripts I wrote to process and convert them, then feeding the resulting G-code through Repetier-Host for motion control.",
+      "Getting consistent pen alignment across color changes took more tuning than the mechanical build did, honestly, but the end result reliably converts a PNG into a clean two-color drawing, shown here on a bird outline and a more detailed dragon-rider illustration."
     ],
     images: [
       { src: "images/drawing-machine/device-1.png", caption: "Assembled machine" },
@@ -109,19 +111,19 @@ const PROJECTS = {
     category: "Analog Circuit Design",
     tagClass: "tag-audio",
     tagLabel: "Analog Circuits",
-    heroImage: "images/guitar-pedal/breadboard.png",
+    heroImage: "images/guitar-pedal/schematic.png",
     title: "GUITAR OVERDRIVE PEDAL",
     org: "Boston University · EC412 Analog Electronics, Spring 2026",
     teaser: "Designed and built a Tube Screamer-inspired overdrive pedal: op-amp gain stage, switchable soft/hard clipping, and active tone control.",
     body: [
-      "For my Analog Electronics course final project, I designed and built a guitar overdrive pedal inspired by the Ibanez Tube Screamer TS808. The circuit produces a distinctive tone through frequency-selective distortion, a mid-frequency boost, and smooth clipping that approximates tube saturation. My build follows the same four-stage structure: input buffer, gain and clipping stage, tone and volume stage, and output buffer.",
+      "For my EC412 final project, I designed and built a guitar overdrive pedal inspired by the Ibanez Tube Screamer TS808, originally designed in 1979-80 by S. Tamura. Despite a fairly simple topology, the circuit produces a distinctive tone through frequency-selective distortion, a mid-frequency boost, and smooth clipping that approximates tube saturation. My build follows the same four-stage structure: input buffer, gain and clipping stage, tone and volume stage, and output buffer.",
       "The input stage is a BJT emitter-follower that presents a high input impedance to the guitar pickups without adding gain, preserving high-frequency content. The core of the effect is an op-amp non-inverting gain stage with a potentiometer in the feedback path (the Distortion knob), driving two clipping modes: soft clipping via diodes inside the feedback loop, which gradually reduces gain past about 0.7V for a tube-like saturation curve, and hard clipping via diodes to the supply rails for a sharper, more square-wave distortion. Decoupling capacitors across the hard-clipping diodes turned out to be essential, without them the 4.5V bias rail forward-biased the diodes at rest and the stage didn't work correctly. A high-pass filter in the feedback loop (~720 Hz) also makes the distortion frequency-selective, so bass content stays cleaner than the mids and treble.",
       "After clipping, a passive low-pass filter (~723 Hz) knocks down high-frequency harmonics, and combined with the gain stage's high-pass filter, produces the circuit's signature mid-frequency boost. An active tone stage built around a second op-amp and a 20 kΩ pot then blends between a bass-leaning second-order low-pass response and a treble-leaning active high-pass response depending on knob position, followed by a passive volume pot and a second BJT emitter-follower output buffer for a low, consistent output impedance into the next device in the chain.",
       "The finished pedal behaved as expected across every stage: clean at low gain, progressively distorted as gain increased, with soft clipping rounding the waveform and hard clipping clamping it more aggressively. The tone control gave an audibly warmer, darker character at one extreme and a brighter, more present one at the other, producing a recognizable overdrive effect consistent with the Tube Screamer's tonal signature."
     ],
     images: [
-      { src: "images/guitar-pedal/breadboard.png", caption: "Assembled circuit on breadboard" },
       { src: "images/guitar-pedal/schematic.png", caption: "Full schematic: input buffer, gain/clipping, tone/volume, output buffer" },
+      { src: "images/guitar-pedal/breadboard.png", caption: "Assembled circuit on breadboard" },
       { src: "images/guitar-pedal/scope-clean.png", caption: "Clean input sine wave" },
       { src: "images/guitar-pedal/scope-distorted.png", caption: "Distorted output showing the overdrive effect" }
     ],
@@ -164,7 +166,7 @@ const PROJECTS = {
     org: "Boston University · ME 547 Computational Fluid Dynamics, Spring 2026",
     teaser: "OpenFOAM simulation of a NACA 0012 airfoil across angles of attack, validated against NASA wind-tunnel data on the BU SCC cluster.",
     body: [
-      "I ran an OpenFOAM simulation of a NACA 0012 airfoil at Re = 2.9×10⁶, M = 0.13, across angles of attack from 0° to 12°, validating lift and drag coefficients against experimental data from 1970 NASA wind-tunnel study",
+      "For my ME 547 final project, I ran an OpenFOAM simulation of a NACA 0012 airfoil at Re = 2.9×10⁶, M = 0.13, across angles of attack from 0° to 12°, validating lift and drag coefficients against Gregory and O'Reilly's 1970 NASA wind-tunnel data on Boston University's Shared Computing Cluster.",
       "I generated the airfoil geometry from a Python script (400 surface points), meshed a 20c × 20c domain with blockMesh, and refined the surface with snappyHexMesh, landing on a 684,497-cell mesh after switching from parallel to serial meshing to avoid decomposition crashes. A three-level grid independence study (35k, 218k, and 335k cells) confirmed convergence, though getting there took some debugging: an early run gave zero lift and drag for every mesh until I traced it to the airfoil surface patch being written to a time directory instead of constant/polyMesh.",
       "I originally planned to run the full angle sweep with simpleFoam (steady-state RANS), which worked at 0° and 4° but diverged above 6°. Switching to pimpleFoam (transient RANS) with the same k-omega SST turbulence model fixed that, and I ran all six angle cases (0°, 4°, 6°, 8°, 10°, 12°) as parallel jobs on the SCC.",
       "The results matched experiment well: lift coefficient tracked the NASA data within about 8% across the full angle range, while drag coefficient matched closely at low angles of attack but was significantly overpredicted past 8°, consistent with known k-omega SST behavior in separated flow. I extracted surface pressure distributions in ParaView and generated all quantitative plots (CL, CD, Cp, grid independence, residual convergence) in MATLAB."
@@ -184,21 +186,27 @@ const PROJECTS = {
     category: "Mechanical + Controls",
     tagClass: "tag-mech",
     tagLabel: "Biomedical",
-    heroImage: "images/peristaltic-pump/front-view.png",
+    heroImage: "images/peristaltic-pump/isometric-front.png",
     title: "PERISTALTIC BLOOD PUMP",
     org: "Boston University · Biomedical Engineering Lab",
-    teaser: "Machined structural components and built the analog driver for a peristaltic blood pump prototype.",
+    teaser: "Designed and fabricated a lower-cost peristaltic pump concept for a biomedical lab's mouse blood-pumping setup, from CAD through a working driver circuit.",
     body: [
-      "A biomedical lab at BU was purchasing commercial peristaltic pumps for mouse blood-pumping applications at a fairly high cost, so I partenered with a friend and designed a lower-cost alternative: a compact, motor-driven peristaltic pump built around off-the-shelf hardware and machined parts instead.",
-      "I designed the CAD model and the electronics. The motor coupler doubles as the drive shaft, connecting directly to the external peristaltic pump head that does the actual tube compression, supported by a roller bearing in the housing (shown in the split view). The front panel that holds the tubing was designed to slide along a set of slots, with a set screw to lock position, so the same housing can accommodate different tube diameters. I sized that panel for 3D printing.",
+      "A biomedical lab at BU was purchasing commercial peristaltic pumps for mouse blood-pumping applications at a fairly high cost, so I designed a lower-cost alternative: a compact, motor-driven peristaltic pump built around off-the-shelf hardware and machined parts instead.",
+      "The motor coupler doubles as the drive shaft, connecting directly to the external peristaltic pump head that does the actual tube compression, supported by a roller bearing in the housing (shown in the split view). The front panel that holds the tubing was designed to slide along a set of slots, with a set screw to lock position, so the same housing can accommodate different tube diameters. I sized that panel for 3D printing.",
       "On the electronics side, an N-MOS stage switches power to the motor, with its gate driven by a 555 timer IC generating a PWM signal, an on-board 100 kΩ potentiometer (the Velocity Knob) sets the duty cycle. An on/off switch and LED handle power state, and a separate Enable switch disables the 555 timer's PWM output without powering down the rest of the system, useful for stopping the motor without losing the rest of the circuit's state. Power comes in through a DC jack into a 12V regulator, so the system tolerates a range of wall-adapter voltages above 12V.",
-      "We fabricated the shaft, front housing, and tube holder in aluminum on the lathe and mill to bring the design into a working prototype."
+      "I fabricated the shaft, front housing, and tube holder in aluminum on the lathe and mill to bring the design off paper and into a working prototype."
     ],
     images: [
+      { src: "images/peristaltic-pump/isometric-front.png", caption: "Front isometric view: velocity knob, on/off switch, enable switch, and DC jack" },
+      { src: "images/peristaltic-pump/panel-labeled.png", caption: "Front panel controls" },
+      { src: "images/peristaltic-pump/isometric-back.png", caption: "Back isometric view: motor coupler, shaft, and tube holder" },
+      { src: "images/peristaltic-pump/cross-section.png", caption: "Split view of the motor, coupler/shaft, and roller bearing" },
+      { src: "images/peristaltic-pump/panel-slides.png", caption: "Sliding front panel: adjusts to accommodate different tube diameters" },
+      { src: "images/peristaltic-pump/cad-side-view.png", caption: "CAD side profile" },
       { src: "images/peristaltic-pump/front-view.png", caption: "Machined roller housing" },
       { src: "images/peristaltic-pump/side-view.png", caption: "Assembled pump with motor coupled" }
     ],
-    pills: ["Lathe & Mill", "Analog Circuits", "Motor Control"]
+    pills: ["SolidWorks", "N-MOS Motor Driver", "555 Timer PWM", "Lathe & Mill", "Analog Circuits", "Motor Control"]
   },
   9: {
     num: "09",
